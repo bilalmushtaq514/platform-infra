@@ -133,3 +133,20 @@ file that was reviewed**). Auth: `sc-azure-infra` OIDC token exported as
 6. The same happens on `iisdev02`, then `iisdev03`.
 7. A pod in AKS curls every node and the ILB. Every response is 200 with the new build, and requests rotate across servers.
 8. A user inside the network (Bastion session, VPN, or an AKS workload) browses to `http://10.20.10.10` and sees `build <BuildId>-<sha> · env dev · server iisdev0N`.
+
+## Problems hit while building this (and the fixes)
+
+| # | Symptom | Root cause | Fix |
+|---|---|---|---|
+| B #112 | `MSB3644` .NETFramework v4.6.1 reference assemblies not found | `eShopLegacy.Utilities` targets net461; the current `windows-2022` image ships an incomplete 4.6.1 targeting pack | Global `/p:TargetFrameworkVersion=v4.7.2` (same TFM as the web app; servers run 4.8). No project edits |
+| B #116 | `NU1605` package downgrade, test build fails | Upstream web project pins `DiagnosticSource 4.5.1` while `Autofac 6.1.0` needs ≥ 4.7.1. `nuget.exe` treats it as a warning, but `msbuild /restore` on an SDK test project makes it an error | Restore the test project with the same `nuget.exe` step; keep NU1605 a warning in the test project only |
+| B #119 | Publish "succeeded" but `site\` was empty | `DeployOnBuild` on a classic web project defaults to the *Package* target and ignores `publishUrl` | `/p:DeployDefaultTarget=WebPublish` |
+| B (early) | Deploy script missing from the artifact | Upstream `.gitignore` ignores `/deploy` | Script moved to `iis-deploy/` |
+| A #114 | Healthy deploy reported as failed | `curl … \| grep -q` under `set -o pipefail`: grep exits on the first match, and curl gets SIGPIPE | Capture the page into a variable, then grep; with retries |
+| A (local) | Container exits at start | Aspire Seq integration refuses to start without a Seq URL | `Aspire__Seq__DisableHealthChecks=true` in the ConfigMap (config, not code) |
+| Infra | Run Command rejected empty parameters | Azure Run Command API refuses `""` parameter values (agent disabled on the first apply) | `dynamic "parameter"` sends only non-empty values |
+| Infra | Pipeline apply would remove the human's AKS access | `deployer_object_ids` included "current caller" | Explicit list in tfvars / variable group |
+| ADO | Runs queue one at a time | Free tier = 1 Microsoft-hosted parallel job | Accepted (cost); noted under improvements |
+| ADO | `**/*.md` didn't exclude root `README.md` | Azure DevOps path filters: `**/` needs a directory segment | Added `*.md` as well |
+| Design | ILB check can't run on an IIS VM | A Standard internal LB doesn't hairpin a backend's own traffic back to itself | Verification runs from a pod in AKS (also proves AKS → legacy connectivity) |
+| Infra #128 | `terraform init` on the Linux agent: provider checksum doesn't match the lock file | Lock file was generated on macOS arm64 only | `terraform providers lock -platform=linux_amd64 -platform=darwin_arm64 -platform=darwin_amd64 -platform=windows_amd64` |

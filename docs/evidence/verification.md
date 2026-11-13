@@ -161,3 +161,23 @@ ILB #1..#6       -> all Healthy, build 121-0bf8205, servers 01/02/03
 
 While `iisdev01` was unhealthy, the ILB probe (`/health`, 2 × 5 s) took it out of rotation,
 so users inside the VNet were served by 02 and 03.
+
+## 6. A visible code change in each repo reaches its target automatically
+
+| | Before | Commit pushed to `main` | After (no manual step except the IIS approval) |
+|---|---|---|---|
+| **A** | `build 120-51f3996` · footer "e-ShopOnWeb. All rights reserved" | `bb97a37` footer text → "v2" | run #125: `build 125-bb97a37 · pod eshop-web-656cbf98c9-h5jv8` · footer "e-ShopOnWeb v2 · shipped to AKS by Azure DevOps" |
+| **B** | `build 121-0bf8205` · title "Catalog manager (MVC)" | `9685fc3` page title → "v2" | run #126: `build 126-9685fc3 · env dev · server iisdev0N` · title "Catalog manager (MVC · v2 on private IIS)" |
+
+```
+$ curl -s http://eshop-hybrid-dev.eastus2.cloudapp.azure.com/ | grep -o 'build [^<]*\|e-ShopOnWeb v2[^<]*'
+build 125-bb97a37 &middot; pod eshop-web-656cbf98c9-h5jv8
+e-ShopOnWeb v2 &middot; shipped to AKS by Azure DevOps
+
+# from a pod in AKS, through the internal LB:
+build 126-9685fc3 &middot; env dev &middot; server iisdev02 Catalog manager <span>(MVC &middot; v2 on private IIS)
+build 126-9685fc3 &middot; env dev &middot; server iisdev03 Catalog manager <span>(MVC &middot; v2 on private IIS)
+...
+# pipeline B #126 verification stage:
+Distinct servers behind the ILB:  5 iisdev01 · 3 iisdev02 · 4 iisdev03   (all on 126-9685fc3)
+```
