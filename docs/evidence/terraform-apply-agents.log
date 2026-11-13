@@ -1,0 +1,63 @@
+Acquiring state lock. This may take a few moments...
+module.iis.azurerm_role_assignment.vm_read_pat["03"]: Creating...
+module.iis.azurerm_role_assignment.vm_read_pat["02"]: Creating...
+module.iis.azurerm_role_assignment.vm_read_pat["01"]: Creating...
+module.iis.azurerm_role_assignment.vm_read_pat["03"]: Still creating... [00m10s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["01"]: Still creating... [00m10s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["02"]: Still creating... [00m10s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["02"]: Still creating... [00m20s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["03"]: Still creating... [00m20s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["01"]: Still creating... [00m20s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["01"]: Still creating... [00m30s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["02"]: Still creating... [00m30s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["03"]: Still creating... [00m30s elapsed]
+module.iis.azurerm_role_assignment.vm_read_pat["02"]: Creation complete after 39s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-tfstate-eus2/providers/Microsoft.KeyVault/vaults/kv-hybrid-mnqsx/secrets/azdo-agent-pat/providers/Microsoft.Authorization/roleAssignments/c9b3459e-1931-2dab-13a6-cce087571566]
+module.iis.azurerm_role_assignment.vm_read_pat["01"]: Creation complete after 39s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-tfstate-eus2/providers/Microsoft.KeyVault/vaults/kv-hybrid-mnqsx/secrets/azdo-agent-pat/providers/Microsoft.Authorization/roleAssignments/39c90322-6464-c29f-2d44-b425430b847d]
+module.iis.azurerm_role_assignment.vm_read_pat["03"]: Creation complete after 40s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-tfstate-eus2/providers/Microsoft.KeyVault/vaults/kv-hybrid-mnqsx/secrets/azdo-agent-pat/providers/Microsoft.Authorization/roleAssignments/fd914d7b-95fe-981a-c9b5-f9991df9344b]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-01/runCommands/iis-bootstrap]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-03/runCommands/iis-bootstrap]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-02/runCommands/iis-bootstrap]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 00m10s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 00m10s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 00m10s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 00m20s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 00m20s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 00m20s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 00m30s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 00m30s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 00m30s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 00m40s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 00m40s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 00m40s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 00m50s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 00m50s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 00m50s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-01/runCommands/iis-bootstrap, 01m00s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 01m00s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 01m00s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["01"]: Modifications complete after 1m6s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-01/runCommands/iis-bootstrap]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 01m10s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-02/runCommands/iis-bootstrap, 01m10s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["02"]: Modifications complete after 1m15s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-02/runCommands/iis-bootstrap]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Still modifying... [id=/subscriptions/0f1d99aa-72a1-4547-8839-...-eus2-iis-03/runCommands/iis-bootstrap, 01m20s elapsed]
+module.iis.azurerm_virtual_machine_run_command.bootstrap["03"]: Modifications complete after 1m27s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.Compute/virtualMachines/vm-hybrid-dev-eus2-iis-03/runCommands/iis-bootstrap]
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 3 added, 3 changed, 0 destroyed.
+
+Outputs:
+
+acr_login_server = "acrhybriddevkdk6.azurecr.io"
+acr_name = "acrhybriddevkdk6"
+aks_cluster_name = "aks-hybrid-dev-eus2"
+iis_admin_password_secret_id = "https://kv-hybrid-mnqsx.vault.azure.net/secrets/hybrid-dev-eus2-iis-admin-password"
+iis_admin_username = "iisadmin"
+iis_egress_ip = "20.114.204.130"
+iis_lb_private_ip = "10.20.10.10"
+iis_vm_private_ips = {
+  "iisdev01" = "10.20.10.5"
+  "iisdev02" = "10.20.10.11"
+  "iisdev03" = "10.20.10.4"
+}
+log_analytics_workspace_id = "/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-dev-eus2/providers/Microsoft.OperationalInsights/workspaces/log-hybrid-dev-eus2"
+resource_group_name = "rg-hybrid-dev-eus2"
