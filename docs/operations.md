@@ -57,6 +57,25 @@ az ad app delete --id <appId>                       # sp-azdo-hybrid-apps, sp-az
 # remove them in Environments → iis-dev → Resources.
 ```
 
+## Rebuild after teardown
+
+On 2026-11-13, after all evidence was captured, **all Azure resources were destroyed** (dev platform + bootstrap).
+The Azure DevOps project (pipelines, run history, environments + approval checks, service connections,
+variable groups) and the two Entra app registrations were **kept**, and they cost nothing while idle.
+
+| Step | Time | Command |
+|---|---|---|
+| 1. Bootstrap (state + Key Vault; new random suffix) | ~5 min | `cd bootstrap && terraform apply` → `terraform output -raw backend_hcl > ../envs/dev/backend.hcl` |
+| 2. Give the infra SP state access again | — | already in `bootstrap/terraform.tfvars` (`state_contributor_object_ids`) |
+| 3. New agent PAT → Key Vault (the old one expired / was deleted with the vault) | ~5 min, human | `read -rs PAT && az keyvault secret set --vault-name <new-kv> --name azdo-agent-pat --value "$PAT"; unset PAT` |
+| 4. Update `envs/dev/terraform.tfvars` with the new KV name, then apply | ~20-25 min | `cd envs/dev && terraform init -reconfigure -backend-config=backend.hcl && terraform apply` |
+| 5. Refresh variable groups (new ACR name, VM IPs, state account, KV) | ~1 min | `ORG=… PROJECT=hybrid-platform scripts/setup-azdo-variable-groups.sh` (run from `envs/dev`) |
+| 6. Remove the 3 stale offline VM resources from `iis-dev` if duplicates appear | ~2 min | Environments → iis-dev → Resources |
+| 7. Run pipeline A, then B (approve) | ~20 min | images and app releases are rebuilt from Git |
+
+Unchanged after a rebuild: the app FQDN `eshop-hybrid-dev.eastus2.cloudapp.azure.com`, the ILB IP `10.20.10.10`,
+and all CIDRs. Public IPs, the ACR name and VM private IPs change; the evidence docs keep the original values.
+
 ### Cost control between work sessions
 
 ```bash

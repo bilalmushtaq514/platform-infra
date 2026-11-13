@@ -33,7 +33,7 @@ flowchart LR
 | 2 | Azure DevOps project (private) – **[screenshots](docs/evidence/screenshots/README.md)** | `https://dev.azure.com/bilalmushtaq514/hybrid-platform` – pipelines *A - eShopOnWeb to AKS*, *B - eShopLegacyMVC to private IIS*, *platform-infra (Terraform)*; environments `aks-dev`, `iis-dev` (3 VMs + approval), `infra-dev` (approval) |
 | 3 | Evidence for §3.3 | [docs/evidence/verification.md](docs/evidence/verification.md): public app, private IIS (failed request + no public IPs), in-VNet LB rotation, v2 change on both, broken deployments caught, rollback |
 | 4 | `terraform plan` / `state list` | [terraform-plan-initial.txt](docs/evidence/terraform-plan-initial.txt) · [terraform-plan-drift-check.txt](docs/evidence/terraform-plan-drift-check.txt) · [terraform-state-list.txt](docs/evidence/terraform-state-list.txt) |
-| Live | Modern app | http://eshop-hybrid-dev.eastus2.cloudapp.azure.com (while the environment is running) |
+| Live | Modern app | http://eshop-hybrid-dev.eastus2.cloudapp.azure.com. **Environment torn down on 2026-11-13 to save cost**; rebuild steps in [operations.md](docs/operations.md#rebuild-after-teardown) (~45-60 min) |
 
 ## Documentation
 

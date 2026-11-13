@@ -16,5 +16,10 @@ terraform {
 provider "azurerm" {
   subscription_id     = var.subscription_id
   storage_use_azuread = true
-  features {}
+  features {
+    key_vault {
+      # On destroy, leave the vault soft-deleted (recoverable for 7 days) instead of purging it.
+      purge_soft_delete_on_destroy = false
+    }
+  }
 }
