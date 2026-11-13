@@ -1,0 +1,6 @@
+# Copy to backend.hcl (git-ignored) - or paste the `backend_hcl` output of ../../bootstrap
+resource_group_name  = "rg-hybrid-tfstate-eus2"
+storage_account_name = "sthybridtfxxxxx"
+container_name       = "tfstate"
+key                  = "dev/platform.tfstate"
+use_azuread_auth     = true

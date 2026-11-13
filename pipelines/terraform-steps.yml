@@ -1,0 +1,47 @@
+# Shared Terraform steps (plan | apply) with OIDC auth from the service connection.
+parameters:
+  - name: command
+    type: string
+    values: [plan, apply]
+
+steps:
+  - bash: |
+      set -euo pipefail
+      curl -sSLo tf.zip "https://releases.hashicorp.com/terraform/$(tfVersion)/terraform_$(tfVersion)_linux_amd64.zip"
+      sudo unzip -oq tf.zip -d /usr/local/bin && terraform version
+    displayName: Install Terraform $(tfVersion)
+
+  - task: AzureCLI@2
+    displayName: terraform ${{ parameters.command }}
+    inputs:
+      azureSubscription: $(azureServiceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      addSpnToEnvironment: true          # exposes servicePrincipalId, tenantId, idToken to the script
+      workingDirectory: $(workDir)
+      inlineScript: |
+        set -euo pipefail
+        export ARM_USE_OIDC=true ARM_OIDC_TOKEN="$idToken" ARM_CLIENT_ID="$servicePrincipalId" \
+               ARM_TENANT_ID="$tenantId" ARM_SUBSCRIPTION_ID="$(TF_SUBSCRIPTION_ID)" ARM_USE_AZUREAD=true
+        export TF_IN_AUTOMATION=1 TF_INPUT=0
+        export TF_VAR_subscription_id="$(TF_SUBSCRIPTION_ID)"
+        export TF_VAR_platform_key_vault_name="$(TF_PLATFORM_KV_NAME)"
+        export TF_VAR_platform_key_vault_rg="$(TF_STATE_RG)"
+        export TF_VAR_deployer_object_ids='$(TF_DEPLOYER_OBJECT_IDS)'
+        export TF_VAR_azdo='$(TF_AZDO)'
+
+        terraform init \
+          -backend-config="resource_group_name=$(TF_STATE_RG)" \
+          -backend-config="storage_account_name=$(TF_STATE_SA)" \
+          -backend-config="container_name=tfstate" \
+          -backend-config="key=dev/platform.tfstate" \
+          -backend-config="use_azuread_auth=true" \
+          -backend-config="use_oidc=true"
+
+        if [ "${{ parameters.command }}" = "plan" ]; then
+          terraform plan -out=tfplan -lock-timeout=5m
+          terraform show -no-color tfplan > tfplan.txt
+          echo "##vso[task.uploadsummary]$(pwd)/tfplan.txt"
+        else
+          terraform apply -lock-timeout=5m tfplan   # exactly the plan that was approved
+        fi

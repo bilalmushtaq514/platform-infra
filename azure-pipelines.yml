@@ -1,0 +1,103 @@
+# =============================================================================
+# platform-infra -> Azure (Terraform)
+#
+#   Validate  (push + PR)  fmt -check, validate, Checkov (security scan)
+#   Plan      (push + PR)  terraform plan -> plan file + readable plan published
+#   Apply     (main only)  Environment "infra-dev" = manual approval of the plan,
+#                          then `terraform apply <that exact plan file>`
+#
+# Auth: service connection "sc-azure-infra" (workload identity federation / OIDC).
+# The pipeline receives a short-lived OIDC token per job; Terraform's azurerm
+# provider + backend use it directly (ARM_USE_OIDC). No client secret exists.
+# Inputs: variable group "platform-infra-dev" (non-secret: sub id, KV name, ids).
+# =============================================================================
+
+name: platform-infra-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include: [main]
+  paths:
+    include: [envs/*, modules/*, azure-pipelines.yml]
+
+pr:
+  branches:
+    include: [main]
+
+variables:
+  - group: platform-infra-dev
+  - name: tfVersion
+    value: 1.16.3
+  - name: workDir
+    value: envs/dev
+  - name: azureServiceConnection
+    value: sc-azure-infra
+  - name: isMain
+    value: ${{ eq(variables['Build.SourceBranch'], 'refs/heads/main') }}
+
+stages:
+  - stage: Validate
+    jobs:
+      - job: validate
+        pool: { vmImage: ubuntu-24.04 }
+        steps:
+          - checkout: self
+            fetchDepth: 1
+          - bash: |
+              set -euo pipefail
+              curl -sSLo tf.zip "https://releases.hashicorp.com/terraform/$(tfVersion)/terraform_$(tfVersion)_linux_amd64.zip"
+              sudo unzip -oq tf.zip -d /usr/local/bin && terraform version
+            displayName: Install Terraform $(tfVersion)
+          - bash: terraform fmt -check -recursive -diff
+            displayName: terraform fmt -check
+          - bash: |
+              set -euo pipefail
+              for d in bootstrap envs/dev; do (cd $d && terraform init -backend=false -input=false >/dev/null && terraform validate); done
+            displayName: terraform validate
+          - bash: |
+              pip install --quiet checkov
+              checkov -d . --framework terraform --compact --quiet --soft-fail -o cli -o junitxml --output-file-path console,checkov.xml
+            displayName: Checkov security scan (report only)
+          - task: PublishTestResults@2
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: JUnit
+              testResultsFiles: checkov.xml
+              testRunTitle: Checkov
+
+  - stage: Plan
+    dependsOn: Validate
+    jobs:
+      - job: plan
+        pool: { vmImage: ubuntu-24.04 }
+        steps:
+          - checkout: self
+            fetchDepth: 1
+          - template: pipelines/terraform-steps.yml
+            parameters:
+              command: plan
+          - publish: $(workDir)/tfplan
+            artifact: tfplan
+          - publish: $(workDir)/tfplan.txt
+            artifact: tfplan-readable
+
+  - stage: Apply
+    dependsOn: Plan
+    condition: and(succeeded(), eq(variables.isMain, 'True'), ne(variables['Build.Reason'], 'PullRequest'))
+    jobs:
+      - deployment: apply
+        environment: infra-dev            # approval check: reviewer reads tfplan-readable first
+        pool: { vmImage: ubuntu-24.04 }
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                  fetchDepth: 1
+                - download: current
+                  artifact: tfplan
+                - bash: cp "$(Pipeline.Workspace)/tfplan/tfplan" "$(workDir)/tfplan"
+                  displayName: Restore approved plan
+                - template: pipelines/terraform-steps.yml
+                  parameters:
+                    command: apply

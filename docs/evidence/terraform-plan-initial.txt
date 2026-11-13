@@ -1,0 +1,1735 @@
+Acquiring state lock. This may take a few moments...
+data.azurerm_key_vault.platform: Reading...
+module.aks.data.azurerm_client_config.current: Reading...
+module.aks.data.azurerm_client_config.current: Read complete after 0s [id=Y2xpZW50Q29uZmlncy9jbGllbnRJZD0wNGIwNzc5NS04ZGRiLTQ2MWEtYmJlZS0wMmY5ZTFiZjdiNDY7b2JqZWN0SWQ9YTVjYzk5ZGUtMWRlNS00ZWI3LTk0NWEtOWM1NDc0NGJiNzE5O3N1YnNjcmlwdGlvbklkPTBmMWQ5OWFhLTcyYTEtNDU0Ny04ODM5LWE4MDk3NDgwYjI0MTt0ZW5hbnRJZD02NGM4ZWVkNy0zMTA2LTQyMTYtOWIxMy0zNzg1ZmY2ZmM1ZDU=]
+data.azurerm_key_vault.platform: Read complete after 2s [id=/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-tfstate-eus2/providers/Microsoft.KeyVault/vaults/kv-hybrid-mnqsx]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_log_analytics_workspace.this will be created
+  + resource "azurerm_log_analytics_workspace" "this" {
+      + allow_resource_only_permissions = true
+      + daily_quota_gb                  = 1
+      + id                              = (known after apply)
+      + internet_ingestion_enabled      = true
+      + internet_query_enabled          = true
+      + local_authentication_disabled   = (known after apply)
+      + local_authentication_enabled    = true
+      + location                        = "eastus2"
+      + name                            = "log-hybrid-dev-eus2"
+      + primary_shared_key              = (sensitive value)
+      + resource_group_name             = "rg-hybrid-dev-eus2"
+      + retention_in_days               = 30
+      + secondary_shared_key            = (sensitive value)
+      + sku                             = "PerGB2018"
+      + tags                            = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + workspace_id                    = (known after apply)
+    }
+
+  # azurerm_resource_group.this will be created
+  + resource "azurerm_resource_group" "this" {
+      + id       = (known after apply)
+      + location = "eastus2"
+      + name     = "rg-hybrid-dev-eus2"
+      + tags     = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # random_string.suffix will be created
+  + resource "random_string" "suffix" {
+      + id          = (known after apply)
+      + length      = 4
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = false
+    }
+
+  # module.aks.azurerm_container_registry.this will be created
+  + resource "azurerm_container_registry" "this" {
+      + admin_enabled                                = false
+      + admin_password                               = (sensitive value)
+      + admin_username                               = (known after apply)
+      + anonymous_pull_enabled                       = false
+      + azuread_authentication_as_arm_policy_enabled = true
+      + data_endpoint_host_names                     = (known after apply)
+      + encryption                                   = (known after apply)
+      + export_policy_enabled                        = true
+      + id                                           = (known after apply)
+      + location                                     = "eastus2"
+      + login_server                                 = (known after apply)
+      + name                                         = (known after apply)
+      + network_rule_bypass_for_tasks_enabled        = false
+      + network_rule_bypass_option                   = "AzureServices"
+      + network_rule_set                             = (known after apply)
+      + public_network_access_enabled                = true
+      + resource_group_name                          = "rg-hybrid-dev-eus2"
+      + role_assignment_mode                         = "LegacyRegistryPermissions"
+      + sku                                          = "Basic"
+      + tags                                         = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + trust_policy_enabled                         = false
+      + zone_redundancy_enabled                      = false
+    }
+
+  # module.aks.azurerm_kubernetes_cluster.this will be created
+  + resource "azurerm_kubernetes_cluster" "this" {
+      + ai_toolchain_operator_enabled       = false
+      + automatic_upgrade_channel           = "patch"
+      + current_kubernetes_version          = (known after apply)
+      + dns_prefix                          = "aks-hybrid-dev-eus2"
+      + fqdn                                = (known after apply)
+      + http_application_routing_zone_name  = (known after apply)
+      + id                                  = (known after apply)
+      + kube_admin_config                   = (sensitive value)
+      + kube_admin_config_raw               = (sensitive value)
+      + kube_config                         = (sensitive value)
+      + kube_config_raw                     = (sensitive value)
+      + kubernetes_version                  = (known after apply)
+      + local_account_disabled              = true
+      + location                            = "eastus2"
+      + name                                = "aks-hybrid-dev-eus2"
+      + node_os_upgrade_channel             = "NodeImage"
+      + node_resource_group                 = "rg-hybrid-dev-eus2-aks-nodes"
+      + node_resource_group_id              = (known after apply)
+      + oidc_issuer_enabled                 = true
+      + oidc_issuer_url                     = (known after apply)
+      + portal_fqdn                         = (known after apply)
+      + private_cluster_enabled             = false
+      + private_cluster_public_fqdn_enabled = false
+      + private_dns_zone_id                 = (known after apply)
+      + private_fqdn                        = (known after apply)
+      + resource_group_name                 = "rg-hybrid-dev-eus2"
+      + role_based_access_control_enabled   = true
+      + run_command_enabled                 = true
+      + sku_tier                            = "Free"
+      + support_plan                        = "KubernetesOfficial"
+      + tags                                = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + workload_identity_enabled           = true
+
+      + auto_scaler_profile (known after apply)
+
+      + azure_active_directory_role_based_access_control {
+          + azure_rbac_enabled = true
+          + tenant_id          = "64c8eed7-3106-4216-9b13-3785ff6fc5d5"
+        }
+
+      + bootstrap_profile (known after apply)
+
+      + default_node_pool {
+          + auto_scaling_enabled         = true
+          + kubelet_disk_type            = (known after apply)
+          + max_count                    = 2
+          + max_pods                     = 50
+          + min_count                    = 1
+          + name                         = "system"
+          + node_count                   = (known after apply)
+          + node_labels                  = (known after apply)
+          + only_critical_addons_enabled = false
+          + orchestrator_version         = (known after apply)
+          + os_disk_size_gb              = 64
+          + os_disk_type                 = "Managed"
+          + os_sku                       = "AzureLinux"
+          + scale_down_mode              = "Delete"
+          + tags                         = {
+              + "environment" = "dev"
+              + "managed_by"  = "terraform"
+              + "project"     = "hybrid"
+              + "repo"        = "platform-infra"
+            }
+          + temporary_name_for_rotation  = "systemtmp"
+          + type                         = "VirtualMachineScaleSets"
+          + ultra_ssd_enabled            = false
+          + vm_size                      = "Standard_B2ms"
+          + vnet_subnet_id               = (known after apply)
+          + workload_runtime             = (known after apply)
+
+          + upgrade_settings {
+              + max_surge = "33%"
+            }
+        }
+
+      + identity {
+          + identity_ids = (known after apply)
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "UserAssigned"
+        }
+
+      + kubelet_identity (known after apply)
+
+      + network_profile {
+          + dns_service_ip      = "172.16.0.10"
+          + ip_versions         = (known after apply)
+          + load_balancer_sku   = "standard"
+          + network_data_plane  = "cilium"
+          + network_mode        = (known after apply)
+          + network_plugin      = "azure"
+          + network_plugin_mode = "overlay"
+          + network_policy      = "cilium"
+          + outbound_type       = "loadBalancer"
+          + pod_cidr            = "192.168.0.0/16"
+          + pod_cidrs           = (known after apply)
+          + service_cidr        = "172.16.0.0/16"
+          + service_cidrs       = (known after apply)
+
+          + load_balancer_profile (known after apply)
+
+          + nat_gateway_profile (known after apply)
+        }
+
+      + node_provisioning_profile (known after apply)
+
+      + oms_agent {
+          + log_analytics_workspace_id      = (known after apply)
+          + msi_auth_for_monitoring_enabled = true
+          + oms_agent_identity              = (known after apply)
+        }
+
+      + windows_profile (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.control_plane_subnet will be created
+  + resource "azurerm_role_assignment" "control_plane_subnet" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Network Contributor"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_acr_push["31fe33f3-93f9-4c9c-a335-2ca5d964071c"] will be created
+  + resource "azurerm_role_assignment" "deployer_acr_push" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "31fe33f3-93f9-4c9c-a335-2ca5d964071c"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "AcrPush"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_acr_push["a5cc99de-1de5-4eb7-945a-9c54744bb719"] will be created
+  + resource "azurerm_role_assignment" "deployer_acr_push" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "a5cc99de-1de5-4eb7-945a-9c54744bb719"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "AcrPush"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_cluster_user["31fe33f3-93f9-4c9c-a335-2ca5d964071c"] will be created
+  + resource "azurerm_role_assignment" "deployer_cluster_user" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "31fe33f3-93f9-4c9c-a335-2ca5d964071c"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Azure Kubernetes Service Cluster User Role"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_cluster_user["a5cc99de-1de5-4eb7-945a-9c54744bb719"] will be created
+  + resource "azurerm_role_assignment" "deployer_cluster_user" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "a5cc99de-1de5-4eb7-945a-9c54744bb719"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Azure Kubernetes Service Cluster User Role"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_rbac_admin["31fe33f3-93f9-4c9c-a335-2ca5d964071c"] will be created
+  + resource "azurerm_role_assignment" "deployer_rbac_admin" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "31fe33f3-93f9-4c9c-a335-2ca5d964071c"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Azure Kubernetes Service RBAC Cluster Admin"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.deployer_rbac_admin["a5cc99de-1de5-4eb7-945a-9c54744bb719"] will be created
+  + resource "azurerm_role_assignment" "deployer_rbac_admin" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = "a5cc99de-1de5-4eb7-945a-9c54744bb719"
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "Azure Kubernetes Service RBAC Cluster Admin"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = (known after apply)
+    }
+
+  # module.aks.azurerm_role_assignment.kubelet_acr_pull will be created
+  + resource "azurerm_role_assignment" "kubelet_acr_pull" {
+      + condition_version                = (known after apply)
+      + id                               = (known after apply)
+      + name                             = (known after apply)
+      + principal_id                     = (known after apply)
+      + principal_type                   = (known after apply)
+      + role_definition_id               = (known after apply)
+      + role_definition_name             = "AcrPull"
+      + scope                            = (known after apply)
+      + skip_service_principal_aad_check = true
+    }
+
+  # module.aks.azurerm_user_assigned_identity.control_plane will be created
+  + resource "azurerm_user_assigned_identity" "control_plane" {
+      + client_id           = (known after apply)
+      + id                  = (known after apply)
+      + location            = "eastus2"
+      + name                = "id-aks-hybrid-dev-eus2"
+      + principal_id        = (known after apply)
+      + resource_group_name = "rg-hybrid-dev-eus2"
+      + tags                = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + tenant_id           = (known after apply)
+    }
+
+  # module.bastion[0].azurerm_bastion_host.this will be created
+  + resource "azurerm_bastion_host" "this" {
+      + copy_paste_enabled        = true
+      + dns_name                  = (known after apply)
+      + file_copy_enabled         = false
+      + id                        = (known after apply)
+      + ip_connect_enabled        = false
+      + kerberos_enabled          = false
+      + location                  = "eastus2"
+      + name                      = "bas-hybrid-dev-eus2"
+      + private_only_enabled      = (known after apply)
+      + resource_group_name       = "rg-hybrid-dev-eus2"
+      + scale_units               = 2
+      + session_recording_enabled = false
+      + shareable_link_enabled    = false
+      + sku                       = "Basic"
+      + tags                      = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + tunneling_enabled         = false
+
+      + ip_configuration {
+          + name                 = "ipconfig"
+          + public_ip_address_id = (known after apply)
+          + subnet_id            = (known after apply)
+        }
+    }
+
+  # module.bastion[0].azurerm_public_ip.this will be created
+  + resource "azurerm_public_ip" "this" {
+      + allocation_method       = "Static"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "eastus2"
+      + name                    = "pip-hybrid-dev-eus2-bastion"
+      + resource_group_name     = "rg-hybrid-dev-eus2"
+      + sku                     = "Standard"
+      + sku_tier                = "Regional"
+      + tags                    = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # module.iis.azurerm_key_vault_secret.admin_password will be created
+  + resource "azurerm_key_vault_secret" "admin_password" {
+      + content_type            = "IIS VM local admin (iisadmin)"
+      + id                      = (known after apply)
+      + key_vault_id            = "/subscriptions/0f1d99aa-72a1-4547-8839-a8097480b241/resourceGroups/rg-hybrid-tfstate-eus2/providers/Microsoft.KeyVault/vaults/kv-hybrid-mnqsx"
+      + name                    = "hybrid-dev-eus2-iis-admin-password"
+      + resource_id             = (known after apply)
+      + resource_versionless_id = (known after apply)
+      + tags                    = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + value                   = (sensitive value)
+      + value_wo                = (write-only attribute)
+      + version                 = (known after apply)
+      + versionless_id          = (known after apply)
+    }
+
+  # module.iis.azurerm_lb.this will be created
+  + resource "azurerm_lb" "this" {
+      + id                   = (known after apply)
+      + location             = "eastus2"
+      + name                 = "lbi-hybrid-dev-eus2-iis"
+      + private_ip_address   = (known after apply)
+      + private_ip_addresses = (known after apply)
+      + public_ip_address_id = (known after apply)
+      + resource_group_name  = "rg-hybrid-dev-eus2"
+      + sku                  = "Standard"
+      + sku_tier             = "Regional"
+      + subnet_id            = (known after apply)
+      + tags                 = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+
+      + frontend_ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + id                                                 = (known after apply)
+          + inbound_nat_rules                                  = (known after apply)
+          + load_balancer_rules                                = (known after apply)
+          + name                                               = "fe-private"
+          + outbound_rules                                     = (known after apply)
+          + private_ip_address                                 = "10.20.10.10"
+          + private_ip_address_allocation                      = "Static"
+          + private_ip_address_version                         = (known after apply)
+          + public_ip_prefix_id                                = (known after apply)
+          + subnet_id                                          = (known after apply)
+          + zones                                              = [
+              + "1",
+              + "2",
+              + "3",
+            ]
+        }
+    }
+
+  # module.iis.azurerm_lb_backend_address_pool.this will be created
+  + resource "azurerm_lb_backend_address_pool" "this" {
+      + backend_ip_configurations = (known after apply)
+      + id                        = (known after apply)
+      + inbound_nat_rules         = (known after apply)
+      + load_balancing_rules      = (known after apply)
+      + loadbalancer_id           = (known after apply)
+      + name                      = "be-iis"
+      + outbound_rules            = (known after apply)
+    }
+
+  # module.iis.azurerm_lb_probe.health will be created
+  + resource "azurerm_lb_probe" "health" {
+      + id                  = (known after apply)
+      + interval_in_seconds = 5
+      + load_balancer_rules = (known after apply)
+      + loadbalancer_id     = (known after apply)
+      + name                = "probe-http-health"
+      + number_of_probes    = 2
+      + port                = 80
+      + probe_threshold     = 1
+      + protocol            = "Http"
+      + request_path        = "/health"
+    }
+
+  # module.iis.azurerm_lb_rule.http will be created
+  + resource "azurerm_lb_rule" "http" {
+      + backend_address_pool_ids       = (known after apply)
+      + backend_port                   = 80
+      + disable_outbound_snat          = true
+      + enable_floating_ip             = (known after apply)
+      + enable_tcp_reset               = (known after apply)
+      + floating_ip_enabled            = (known after apply)
+      + frontend_ip_configuration_id   = (known after apply)
+      + frontend_ip_configuration_name = "fe-private"
+      + frontend_port                  = 80
+      + id                             = (known after apply)
+      + idle_timeout_in_minutes        = 4
+      + load_distribution              = "Default"
+      + loadbalancer_id                = (known after apply)
+      + name                           = "http-80"
+      + probe_id                       = (known after apply)
+      + protocol                       = "Tcp"
+      + tcp_reset_enabled              = (known after apply)
+    }
+
+  # module.iis.azurerm_network_interface.this["01"] will be created
+  + resource "azurerm_network_interface" "this" {
+      + accelerated_networking_enabled = false
+      + applied_dns_servers            = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = false
+      + location                       = "eastus2"
+      + mac_address                    = (known after apply)
+      + name                           = "nic-vm-hybrid-dev-eus2-iis-01"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-hybrid-dev-eus2"
+      + tags                           = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "ipconfig1"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + subnet_id                                          = (known after apply)
+        }
+    }
+
+  # module.iis.azurerm_network_interface.this["02"] will be created
+  + resource "azurerm_network_interface" "this" {
+      + accelerated_networking_enabled = false
+      + applied_dns_servers            = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = false
+      + location                       = "eastus2"
+      + mac_address                    = (known after apply)
+      + name                           = "nic-vm-hybrid-dev-eus2-iis-02"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-hybrid-dev-eus2"
+      + tags                           = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "ipconfig1"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + subnet_id                                          = (known after apply)
+        }
+    }
+
+  # module.iis.azurerm_network_interface.this["03"] will be created
+  + resource "azurerm_network_interface" "this" {
+      + accelerated_networking_enabled = false
+      + applied_dns_servers            = (known after apply)
+      + id                             = (known after apply)
+      + internal_domain_name_suffix    = (known after apply)
+      + ip_forwarding_enabled          = false
+      + location                       = "eastus2"
+      + mac_address                    = (known after apply)
+      + name                           = "nic-vm-hybrid-dev-eus2-iis-03"
+      + private_ip_address             = (known after apply)
+      + private_ip_addresses           = (known after apply)
+      + resource_group_name            = "rg-hybrid-dev-eus2"
+      + tags                           = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id             = (known after apply)
+
+      + ip_configuration {
+          + gateway_load_balancer_frontend_ip_configuration_id = (known after apply)
+          + name                                               = "ipconfig1"
+          + primary                                            = (known after apply)
+          + private_ip_address                                 = (known after apply)
+          + private_ip_address_allocation                      = "Dynamic"
+          + private_ip_address_version                         = "IPv4"
+          + subnet_id                                          = (known after apply)
+        }
+    }
+
+  # module.iis.azurerm_network_interface_backend_address_pool_association.this["01"] will be created
+  + resource "azurerm_network_interface_backend_address_pool_association" "this" {
+      + backend_address_pool_id = (known after apply)
+      + id                      = (known after apply)
+      + ip_configuration_name   = "ipconfig1"
+      + network_interface_id    = (known after apply)
+    }
+
+  # module.iis.azurerm_network_interface_backend_address_pool_association.this["02"] will be created
+  + resource "azurerm_network_interface_backend_address_pool_association" "this" {
+      + backend_address_pool_id = (known after apply)
+      + id                      = (known after apply)
+      + ip_configuration_name   = "ipconfig1"
+      + network_interface_id    = (known after apply)
+    }
+
+  # module.iis.azurerm_network_interface_backend_address_pool_association.this["03"] will be created
+  + resource "azurerm_network_interface_backend_address_pool_association" "this" {
+      + backend_address_pool_id = (known after apply)
+      + id                      = (known after apply)
+      + ip_configuration_name   = "ipconfig1"
+      + network_interface_id    = (known after apply)
+    }
+
+  # module.iis.azurerm_virtual_machine_run_command.bootstrap["01"] will be created
+  + resource "azurerm_virtual_machine_run_command" "bootstrap" {
+      + id                 = (known after apply)
+      + instance_view      = (known after apply)
+      + location           = "eastus2"
+      + name               = "iis-bootstrap"
+      + tags               = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id = (known after apply)
+
+      + parameter {
+          + name  = "AppPoolName"
+          + value = "eShopLegacy"
+        }
+      + parameter {
+          + name  = "AzdoVmTags"
+          + value = "iis"
+        }
+      + parameter {
+          + name  = "SiteName"
+          + value = "eShopLegacy"
+        }
+
+      + source {
+          + script = <<-EOT
+                <#
+                .SYNOPSIS
+                  Idempotent bootstrap for a private IIS node (I-3, I-6, B-3).
+                
+                  Executed by Terraform through the VM "Run Command" extension (runs as SYSTEM).
+                  Safe to re-run: every step checks current state first.
+                
+                  1. Installs IIS + ASP.NET 4.x features.
+                  2. Creates the app pool (.NET CLR v4.0, Integrated) and the site on :80.
+                  3. Seeds a placeholder release so the load-balancer probe (/health) is green
+                     before the first pipeline deployment.
+                  4. (Optional) Installs the Azure Pipelines agent and registers this VM as a
+                     resource in an Azure DevOps *Environment*. The agent only makes OUTBOUND
+                     HTTPS calls to dev.azure.com (via the NAT Gateway) – no inbound port is
+                     ever opened. The one-time registration PAT is read from Key Vault with
+                     the VM's managed identity, so it never appears in Terraform state or Git.
+                #>
+                param(
+                  [string]$SiteName = 'eShopLegacy',
+                  [string]$AppPoolName = 'eShopLegacy',
+                  [string]$SiteRoot = 'C:\inetpub\eshop',
+                  [string]$AzdoOrgUrl = '',
+                  [string]$AzdoProject = '',
+                  [string]$AzdoEnvironment = '',
+                  [string]$AzdoAgentVersion = '5.281.1',
+                  [string]$AzdoVmTags = 'iis',
+                  [string]$KeyVaultName = '',
+                  [string]$PatSecretName = 'azdo-agent-pat'
+                )
+                
+                $ErrorActionPreference = 'Stop'
+                $ProgressPreference = 'SilentlyContinue'
+                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+                New-Item -ItemType Directory -Force -Path 'C:\bootstrap' | Out-Null
+                Start-Transcript -Path 'C:\bootstrap\bootstrap.log' -Append | Out-Null
+                
+                function Write-Step($msg) { Write-Output ("[{0:u}] {1}" -f (Get-Date), $msg) }
+                
+                # --- 1. Windows features --------------------------------------------------------
+                $features = @(
+                  'Web-Server', 'Web-WebServer', 'Web-Common-Http', 'Web-Default-Doc', 'Web-Static-Content',
+                  'Web-Http-Errors', 'Web-Http-Logging', 'Web-Request-Monitor', 'Web-Stat-Compression',
+                  'Web-Filtering', 'Web-Net-Ext45', 'Web-Asp-Net45', 'Web-ISAPI-Ext', 'Web-ISAPI-Filter',
+                  'Web-Mgmt-Console', 'Web-Scripting-Tools', 'NET-Framework-45-ASPNET'
+                )
+                $missing = Get-WindowsFeature -Name $features | Where-Object { -not $_.Installed }
+                if ($missing) {
+                  Write-Step "Installing features: $($missing.Name -join ', ')"
+                  $r = Install-WindowsFeature -Name $missing.Name
+                  if (-not $r.Success) { throw "Feature install failed: $($r.ExitCode)" }
+                } else {
+                  Write-Step 'IIS / ASP.NET 4.x features already installed'
+                }
+                
+                Import-Module WebAdministration
+                
+                # --- 2. Placeholder release + app pool + site ------------------------------------
+                # Layout:  C:\inetpub\eshop\releases\<build-id>\   (one folder per deployment)
+                # The site's physicalPath points at one release; deploy = switch the pointer.
+                $releases = Join-Path $SiteRoot 'releases'
+                $placeholder = Join-Path $releases '0-bootstrap'
+                if (-not (Test-Path $placeholder)) {
+                  Write-Step "Creating placeholder release $placeholder"
+                  New-Item -ItemType Directory -Force -Path $placeholder | Out-Null
+                  $html = "<html><body><h1>$env:COMPUTERNAME</h1><p>IIS bootstrapped - awaiting first pipeline deployment.</p></body></html>"
+                  Set-Content -Path (Join-Path $placeholder 'index.html') -Value $html -Encoding UTF8
+                  # Extension-less 'health' file so GET /health returns 200 before the app exists.
+                  Set-Content -Path (Join-Path $placeholder 'health') -Value "Healthy (bootstrap) $env:COMPUTERNAME" -Encoding ASCII
+                  @'
+                <?xml version="1.0" encoding="utf-8"?>
+                <configuration>
+                  <system.webServer>
+                    <staticContent>
+                      <mimeMap fileExtension="." mimeType="text/plain" />
+                    </staticContent>
+                    <defaultDocument><files><clear /><add value="index.html" /></files></defaultDocument>
+                  </system.webServer>
+                </configuration>
+                '@ | Set-Content -Path (Join-Path $placeholder 'web.config') -Encoding UTF8
+                }
+                
+                if (-not (Test-Path "IIS:\AppPools\$AppPoolName")) {
+                  Write-Step "Creating app pool $AppPoolName"
+                  New-WebAppPool -Name $AppPoolName | Out-Null
+                }
+                $poolPath = "IIS:\AppPools\$AppPoolName"
+                Set-ItemProperty $poolPath -Name managedRuntimeVersion -Value 'v4.0'
+                Set-ItemProperty $poolPath -Name managedPipelineMode -Value 'Integrated'
+                Set-ItemProperty $poolPath -Name startMode -Value 'AlwaysRunning'
+                Set-ItemProperty $poolPath -Name processModel.identityType -Value 'ApplicationPoolIdentity'
+                Set-ItemProperty $poolPath -Name processModel.idleTimeout -Value ([TimeSpan]::Zero)
+                
+                if (Get-Website -Name 'Default Web Site' -ErrorAction SilentlyContinue) {
+                  Write-Step 'Removing Default Web Site (frees :80)'
+                  Remove-Website -Name 'Default Web Site'
+                }
+                
+                if (-not (Get-Website -Name $SiteName -ErrorAction SilentlyContinue)) {
+                  Write-Step "Creating site $SiteName on :80 -> $placeholder"
+                  New-Website -Name $SiteName -Port 80 -PhysicalPath $placeholder -ApplicationPool $AppPoolName | Out-Null
+                }
+                Start-Website -Name $SiteName -ErrorAction SilentlyContinue
+                
+                # Inbound HTTP on the host firewall (the NSG is still the real perimeter).
+                Enable-NetFirewallRule -DisplayGroup 'World Wide Web Services (HTTP)' -ErrorAction SilentlyContinue
+                
+                # --- 3. Azure Pipelines agent (Environment VM resource) ---------------------------
+                if ([string]::IsNullOrWhiteSpace($AzdoOrgUrl)) {
+                  Write-Step 'AzdoOrgUrl not set - skipping agent registration'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                $agentDir = 'C:\azagent'
+                if (Test-Path (Join-Path $agentDir '.agent')) {
+                  Write-Step 'Azure Pipelines agent already configured'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                # PAT from Key Vault using the VM's system-assigned managed identity (IMDS).
+                # RBAC assignments can take a few minutes to propagate -> retry.
+                $pat = $null
+                for ($i = 1; $i -le 30 -and -not $pat; $i++) {
+                  try {
+                    $tok = (Invoke-RestMethod -Headers @{ Metadata = 'true' } -Uri 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fvault.azure.net').access_token
+                    $pat = (Invoke-RestMethod -Headers @{ Authorization = "Bearer $tok" } -Uri "https://$KeyVaultName.vault.azure.net/secrets/$($PatSecretName)?api-version=7.4").value
+                  } catch {
+                    Write-Step "Key Vault not readable yet (attempt $i/30): $($_.Exception.Message)"
+                    Start-Sleep -Seconds 20
+                  }
+                }
+                if (-not $pat) { throw "Could not read secret '$PatSecretName' from Key Vault '$KeyVaultName'" }
+                
+                New-Item -ItemType Directory -Force -Path $agentDir | Out-Null
+                $zip = Join-Path $env:TEMP "agent-$AzdoAgentVersion.zip"
+                $url = "https://download.agent.dev.azure.com/agent/$AzdoAgentVersion/vsts-agent-win-x64-$AzdoAgentVersion.zip"
+                Write-Step "Downloading agent $url"
+                Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
+                Expand-Archive -Path $zip -DestinationPath $agentDir -Force
+                
+                Push-Location $agentDir
+                try {
+                  Write-Step "Registering in environment '$AzdoEnvironment' of $AzdoOrgUrl/$AzdoProject"
+                  # Runs as LocalSystem because deployments must stop/start IIS app pools and
+                  # write under C:\inetpub. Trade-off documented in docs/security.md.
+                  & .\config.cmd --unattended `
+                    --environment --environmentname $AzdoEnvironment `
+                    --agent $env:COMPUTERNAME --replace `
+                    --runasservice --windowsLogonAccount 'NT AUTHORITY\SYSTEM' `
+                    --work '_work' `
+                    --url $AzdoOrgUrl --projectname $AzdoProject `
+                    --auth PAT --token $pat `
+                    --addvirtualmachineresourcetags --virtualmachineresourcetags $AzdoVmTags
+                  if ($LASTEXITCODE -ne 0) { throw "config.cmd failed with exit code $LASTEXITCODE" }
+                } finally {
+                  Pop-Location
+                  $pat = $null
+                  Remove-Item $zip -Force -ErrorAction SilentlyContinue
+                }
+                
+                Write-Step 'Bootstrap complete'
+                Stop-Transcript | Out-Null
+            EOT
+        }
+    }
+
+  # module.iis.azurerm_virtual_machine_run_command.bootstrap["02"] will be created
+  + resource "azurerm_virtual_machine_run_command" "bootstrap" {
+      + id                 = (known after apply)
+      + instance_view      = (known after apply)
+      + location           = "eastus2"
+      + name               = "iis-bootstrap"
+      + tags               = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id = (known after apply)
+
+      + parameter {
+          + name  = "AppPoolName"
+          + value = "eShopLegacy"
+        }
+      + parameter {
+          + name  = "AzdoVmTags"
+          + value = "iis"
+        }
+      + parameter {
+          + name  = "SiteName"
+          + value = "eShopLegacy"
+        }
+
+      + source {
+          + script = <<-EOT
+                <#
+                .SYNOPSIS
+                  Idempotent bootstrap for a private IIS node (I-3, I-6, B-3).
+                
+                  Executed by Terraform through the VM "Run Command" extension (runs as SYSTEM).
+                  Safe to re-run: every step checks current state first.
+                
+                  1. Installs IIS + ASP.NET 4.x features.
+                  2. Creates the app pool (.NET CLR v4.0, Integrated) and the site on :80.
+                  3. Seeds a placeholder release so the load-balancer probe (/health) is green
+                     before the first pipeline deployment.
+                  4. (Optional) Installs the Azure Pipelines agent and registers this VM as a
+                     resource in an Azure DevOps *Environment*. The agent only makes OUTBOUND
+                     HTTPS calls to dev.azure.com (via the NAT Gateway) – no inbound port is
+                     ever opened. The one-time registration PAT is read from Key Vault with
+                     the VM's managed identity, so it never appears in Terraform state or Git.
+                #>
+                param(
+                  [string]$SiteName = 'eShopLegacy',
+                  [string]$AppPoolName = 'eShopLegacy',
+                  [string]$SiteRoot = 'C:\inetpub\eshop',
+                  [string]$AzdoOrgUrl = '',
+                  [string]$AzdoProject = '',
+                  [string]$AzdoEnvironment = '',
+                  [string]$AzdoAgentVersion = '5.281.1',
+                  [string]$AzdoVmTags = 'iis',
+                  [string]$KeyVaultName = '',
+                  [string]$PatSecretName = 'azdo-agent-pat'
+                )
+                
+                $ErrorActionPreference = 'Stop'
+                $ProgressPreference = 'SilentlyContinue'
+                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+                New-Item -ItemType Directory -Force -Path 'C:\bootstrap' | Out-Null
+                Start-Transcript -Path 'C:\bootstrap\bootstrap.log' -Append | Out-Null
+                
+                function Write-Step($msg) { Write-Output ("[{0:u}] {1}" -f (Get-Date), $msg) }
+                
+                # --- 1. Windows features --------------------------------------------------------
+                $features = @(
+                  'Web-Server', 'Web-WebServer', 'Web-Common-Http', 'Web-Default-Doc', 'Web-Static-Content',
+                  'Web-Http-Errors', 'Web-Http-Logging', 'Web-Request-Monitor', 'Web-Stat-Compression',
+                  'Web-Filtering', 'Web-Net-Ext45', 'Web-Asp-Net45', 'Web-ISAPI-Ext', 'Web-ISAPI-Filter',
+                  'Web-Mgmt-Console', 'Web-Scripting-Tools', 'NET-Framework-45-ASPNET'
+                )
+                $missing = Get-WindowsFeature -Name $features | Where-Object { -not $_.Installed }
+                if ($missing) {
+                  Write-Step "Installing features: $($missing.Name -join ', ')"
+                  $r = Install-WindowsFeature -Name $missing.Name
+                  if (-not $r.Success) { throw "Feature install failed: $($r.ExitCode)" }
+                } else {
+                  Write-Step 'IIS / ASP.NET 4.x features already installed'
+                }
+                
+                Import-Module WebAdministration
+                
+                # --- 2. Placeholder release + app pool + site ------------------------------------
+                # Layout:  C:\inetpub\eshop\releases\<build-id>\   (one folder per deployment)
+                # The site's physicalPath points at one release; deploy = switch the pointer.
+                $releases = Join-Path $SiteRoot 'releases'
+                $placeholder = Join-Path $releases '0-bootstrap'
+                if (-not (Test-Path $placeholder)) {
+                  Write-Step "Creating placeholder release $placeholder"
+                  New-Item -ItemType Directory -Force -Path $placeholder | Out-Null
+                  $html = "<html><body><h1>$env:COMPUTERNAME</h1><p>IIS bootstrapped - awaiting first pipeline deployment.</p></body></html>"
+                  Set-Content -Path (Join-Path $placeholder 'index.html') -Value $html -Encoding UTF8
+                  # Extension-less 'health' file so GET /health returns 200 before the app exists.
+                  Set-Content -Path (Join-Path $placeholder 'health') -Value "Healthy (bootstrap) $env:COMPUTERNAME" -Encoding ASCII
+                  @'
+                <?xml version="1.0" encoding="utf-8"?>
+                <configuration>
+                  <system.webServer>
+                    <staticContent>
+                      <mimeMap fileExtension="." mimeType="text/plain" />
+                    </staticContent>
+                    <defaultDocument><files><clear /><add value="index.html" /></files></defaultDocument>
+                  </system.webServer>
+                </configuration>
+                '@ | Set-Content -Path (Join-Path $placeholder 'web.config') -Encoding UTF8
+                }
+                
+                if (-not (Test-Path "IIS:\AppPools\$AppPoolName")) {
+                  Write-Step "Creating app pool $AppPoolName"
+                  New-WebAppPool -Name $AppPoolName | Out-Null
+                }
+                $poolPath = "IIS:\AppPools\$AppPoolName"
+                Set-ItemProperty $poolPath -Name managedRuntimeVersion -Value 'v4.0'
+                Set-ItemProperty $poolPath -Name managedPipelineMode -Value 'Integrated'
+                Set-ItemProperty $poolPath -Name startMode -Value 'AlwaysRunning'
+                Set-ItemProperty $poolPath -Name processModel.identityType -Value 'ApplicationPoolIdentity'
+                Set-ItemProperty $poolPath -Name processModel.idleTimeout -Value ([TimeSpan]::Zero)
+                
+                if (Get-Website -Name 'Default Web Site' -ErrorAction SilentlyContinue) {
+                  Write-Step 'Removing Default Web Site (frees :80)'
+                  Remove-Website -Name 'Default Web Site'
+                }
+                
+                if (-not (Get-Website -Name $SiteName -ErrorAction SilentlyContinue)) {
+                  Write-Step "Creating site $SiteName on :80 -> $placeholder"
+                  New-Website -Name $SiteName -Port 80 -PhysicalPath $placeholder -ApplicationPool $AppPoolName | Out-Null
+                }
+                Start-Website -Name $SiteName -ErrorAction SilentlyContinue
+                
+                # Inbound HTTP on the host firewall (the NSG is still the real perimeter).
+                Enable-NetFirewallRule -DisplayGroup 'World Wide Web Services (HTTP)' -ErrorAction SilentlyContinue
+                
+                # --- 3. Azure Pipelines agent (Environment VM resource) ---------------------------
+                if ([string]::IsNullOrWhiteSpace($AzdoOrgUrl)) {
+                  Write-Step 'AzdoOrgUrl not set - skipping agent registration'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                $agentDir = 'C:\azagent'
+                if (Test-Path (Join-Path $agentDir '.agent')) {
+                  Write-Step 'Azure Pipelines agent already configured'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                # PAT from Key Vault using the VM's system-assigned managed identity (IMDS).
+                # RBAC assignments can take a few minutes to propagate -> retry.
+                $pat = $null
+                for ($i = 1; $i -le 30 -and -not $pat; $i++) {
+                  try {
+                    $tok = (Invoke-RestMethod -Headers @{ Metadata = 'true' } -Uri 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fvault.azure.net').access_token
+                    $pat = (Invoke-RestMethod -Headers @{ Authorization = "Bearer $tok" } -Uri "https://$KeyVaultName.vault.azure.net/secrets/$($PatSecretName)?api-version=7.4").value
+                  } catch {
+                    Write-Step "Key Vault not readable yet (attempt $i/30): $($_.Exception.Message)"
+                    Start-Sleep -Seconds 20
+                  }
+                }
+                if (-not $pat) { throw "Could not read secret '$PatSecretName' from Key Vault '$KeyVaultName'" }
+                
+                New-Item -ItemType Directory -Force -Path $agentDir | Out-Null
+                $zip = Join-Path $env:TEMP "agent-$AzdoAgentVersion.zip"
+                $url = "https://download.agent.dev.azure.com/agent/$AzdoAgentVersion/vsts-agent-win-x64-$AzdoAgentVersion.zip"
+                Write-Step "Downloading agent $url"
+                Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
+                Expand-Archive -Path $zip -DestinationPath $agentDir -Force
+                
+                Push-Location $agentDir
+                try {
+                  Write-Step "Registering in environment '$AzdoEnvironment' of $AzdoOrgUrl/$AzdoProject"
+                  # Runs as LocalSystem because deployments must stop/start IIS app pools and
+                  # write under C:\inetpub. Trade-off documented in docs/security.md.
+                  & .\config.cmd --unattended `
+                    --environment --environmentname $AzdoEnvironment `
+                    --agent $env:COMPUTERNAME --replace `
+                    --runasservice --windowsLogonAccount 'NT AUTHORITY\SYSTEM' `
+                    --work '_work' `
+                    --url $AzdoOrgUrl --projectname $AzdoProject `
+                    --auth PAT --token $pat `
+                    --addvirtualmachineresourcetags --virtualmachineresourcetags $AzdoVmTags
+                  if ($LASTEXITCODE -ne 0) { throw "config.cmd failed with exit code $LASTEXITCODE" }
+                } finally {
+                  Pop-Location
+                  $pat = $null
+                  Remove-Item $zip -Force -ErrorAction SilentlyContinue
+                }
+                
+                Write-Step 'Bootstrap complete'
+                Stop-Transcript | Out-Null
+            EOT
+        }
+    }
+
+  # module.iis.azurerm_virtual_machine_run_command.bootstrap["03"] will be created
+  + resource "azurerm_virtual_machine_run_command" "bootstrap" {
+      + id                 = (known after apply)
+      + instance_view      = (known after apply)
+      + location           = "eastus2"
+      + name               = "iis-bootstrap"
+      + tags               = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+      + virtual_machine_id = (known after apply)
+
+      + parameter {
+          + name  = "AppPoolName"
+          + value = "eShopLegacy"
+        }
+      + parameter {
+          + name  = "AzdoVmTags"
+          + value = "iis"
+        }
+      + parameter {
+          + name  = "SiteName"
+          + value = "eShopLegacy"
+        }
+
+      + source {
+          + script = <<-EOT
+                <#
+                .SYNOPSIS
+                  Idempotent bootstrap for a private IIS node (I-3, I-6, B-3).
+                
+                  Executed by Terraform through the VM "Run Command" extension (runs as SYSTEM).
+                  Safe to re-run: every step checks current state first.
+                
+                  1. Installs IIS + ASP.NET 4.x features.
+                  2. Creates the app pool (.NET CLR v4.0, Integrated) and the site on :80.
+                  3. Seeds a placeholder release so the load-balancer probe (/health) is green
+                     before the first pipeline deployment.
+                  4. (Optional) Installs the Azure Pipelines agent and registers this VM as a
+                     resource in an Azure DevOps *Environment*. The agent only makes OUTBOUND
+                     HTTPS calls to dev.azure.com (via the NAT Gateway) – no inbound port is
+                     ever opened. The one-time registration PAT is read from Key Vault with
+                     the VM's managed identity, so it never appears in Terraform state or Git.
+                #>
+                param(
+                  [string]$SiteName = 'eShopLegacy',
+                  [string]$AppPoolName = 'eShopLegacy',
+                  [string]$SiteRoot = 'C:\inetpub\eshop',
+                  [string]$AzdoOrgUrl = '',
+                  [string]$AzdoProject = '',
+                  [string]$AzdoEnvironment = '',
+                  [string]$AzdoAgentVersion = '5.281.1',
+                  [string]$AzdoVmTags = 'iis',
+                  [string]$KeyVaultName = '',
+                  [string]$PatSecretName = 'azdo-agent-pat'
+                )
+                
+                $ErrorActionPreference = 'Stop'
+                $ProgressPreference = 'SilentlyContinue'
+                [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+                New-Item -ItemType Directory -Force -Path 'C:\bootstrap' | Out-Null
+                Start-Transcript -Path 'C:\bootstrap\bootstrap.log' -Append | Out-Null
+                
+                function Write-Step($msg) { Write-Output ("[{0:u}] {1}" -f (Get-Date), $msg) }
+                
+                # --- 1. Windows features --------------------------------------------------------
+                $features = @(
+                  'Web-Server', 'Web-WebServer', 'Web-Common-Http', 'Web-Default-Doc', 'Web-Static-Content',
+                  'Web-Http-Errors', 'Web-Http-Logging', 'Web-Request-Monitor', 'Web-Stat-Compression',
+                  'Web-Filtering', 'Web-Net-Ext45', 'Web-Asp-Net45', 'Web-ISAPI-Ext', 'Web-ISAPI-Filter',
+                  'Web-Mgmt-Console', 'Web-Scripting-Tools', 'NET-Framework-45-ASPNET'
+                )
+                $missing = Get-WindowsFeature -Name $features | Where-Object { -not $_.Installed }
+                if ($missing) {
+                  Write-Step "Installing features: $($missing.Name -join ', ')"
+                  $r = Install-WindowsFeature -Name $missing.Name
+                  if (-not $r.Success) { throw "Feature install failed: $($r.ExitCode)" }
+                } else {
+                  Write-Step 'IIS / ASP.NET 4.x features already installed'
+                }
+                
+                Import-Module WebAdministration
+                
+                # --- 2. Placeholder release + app pool + site ------------------------------------
+                # Layout:  C:\inetpub\eshop\releases\<build-id>\   (one folder per deployment)
+                # The site's physicalPath points at one release; deploy = switch the pointer.
+                $releases = Join-Path $SiteRoot 'releases'
+                $placeholder = Join-Path $releases '0-bootstrap'
+                if (-not (Test-Path $placeholder)) {
+                  Write-Step "Creating placeholder release $placeholder"
+                  New-Item -ItemType Directory -Force -Path $placeholder | Out-Null
+                  $html = "<html><body><h1>$env:COMPUTERNAME</h1><p>IIS bootstrapped - awaiting first pipeline deployment.</p></body></html>"
+                  Set-Content -Path (Join-Path $placeholder 'index.html') -Value $html -Encoding UTF8
+                  # Extension-less 'health' file so GET /health returns 200 before the app exists.
+                  Set-Content -Path (Join-Path $placeholder 'health') -Value "Healthy (bootstrap) $env:COMPUTERNAME" -Encoding ASCII
+                  @'
+                <?xml version="1.0" encoding="utf-8"?>
+                <configuration>
+                  <system.webServer>
+                    <staticContent>
+                      <mimeMap fileExtension="." mimeType="text/plain" />
+                    </staticContent>
+                    <defaultDocument><files><clear /><add value="index.html" /></files></defaultDocument>
+                  </system.webServer>
+                </configuration>
+                '@ | Set-Content -Path (Join-Path $placeholder 'web.config') -Encoding UTF8
+                }
+                
+                if (-not (Test-Path "IIS:\AppPools\$AppPoolName")) {
+                  Write-Step "Creating app pool $AppPoolName"
+                  New-WebAppPool -Name $AppPoolName | Out-Null
+                }
+                $poolPath = "IIS:\AppPools\$AppPoolName"
+                Set-ItemProperty $poolPath -Name managedRuntimeVersion -Value 'v4.0'
+                Set-ItemProperty $poolPath -Name managedPipelineMode -Value 'Integrated'
+                Set-ItemProperty $poolPath -Name startMode -Value 'AlwaysRunning'
+                Set-ItemProperty $poolPath -Name processModel.identityType -Value 'ApplicationPoolIdentity'
+                Set-ItemProperty $poolPath -Name processModel.idleTimeout -Value ([TimeSpan]::Zero)
+                
+                if (Get-Website -Name 'Default Web Site' -ErrorAction SilentlyContinue) {
+                  Write-Step 'Removing Default Web Site (frees :80)'
+                  Remove-Website -Name 'Default Web Site'
+                }
+                
+                if (-not (Get-Website -Name $SiteName -ErrorAction SilentlyContinue)) {
+                  Write-Step "Creating site $SiteName on :80 -> $placeholder"
+                  New-Website -Name $SiteName -Port 80 -PhysicalPath $placeholder -ApplicationPool $AppPoolName | Out-Null
+                }
+                Start-Website -Name $SiteName -ErrorAction SilentlyContinue
+                
+                # Inbound HTTP on the host firewall (the NSG is still the real perimeter).
+                Enable-NetFirewallRule -DisplayGroup 'World Wide Web Services (HTTP)' -ErrorAction SilentlyContinue
+                
+                # --- 3. Azure Pipelines agent (Environment VM resource) ---------------------------
+                if ([string]::IsNullOrWhiteSpace($AzdoOrgUrl)) {
+                  Write-Step 'AzdoOrgUrl not set - skipping agent registration'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                $agentDir = 'C:\azagent'
+                if (Test-Path (Join-Path $agentDir '.agent')) {
+                  Write-Step 'Azure Pipelines agent already configured'
+                  Stop-Transcript | Out-Null
+                  exit 0
+                }
+                
+                # PAT from Key Vault using the VM's system-assigned managed identity (IMDS).
+                # RBAC assignments can take a few minutes to propagate -> retry.
+                $pat = $null
+                for ($i = 1; $i -le 30 -and -not $pat; $i++) {
+                  try {
+                    $tok = (Invoke-RestMethod -Headers @{ Metadata = 'true' } -Uri 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fvault.azure.net').access_token
+                    $pat = (Invoke-RestMethod -Headers @{ Authorization = "Bearer $tok" } -Uri "https://$KeyVaultName.vault.azure.net/secrets/$($PatSecretName)?api-version=7.4").value
+                  } catch {
+                    Write-Step "Key Vault not readable yet (attempt $i/30): $($_.Exception.Message)"
+                    Start-Sleep -Seconds 20
+                  }
+                }
+                if (-not $pat) { throw "Could not read secret '$PatSecretName' from Key Vault '$KeyVaultName'" }
+                
+                New-Item -ItemType Directory -Force -Path $agentDir | Out-Null
+                $zip = Join-Path $env:TEMP "agent-$AzdoAgentVersion.zip"
+                $url = "https://download.agent.dev.azure.com/agent/$AzdoAgentVersion/vsts-agent-win-x64-$AzdoAgentVersion.zip"
+                Write-Step "Downloading agent $url"
+                Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
+                Expand-Archive -Path $zip -DestinationPath $agentDir -Force
+                
+                Push-Location $agentDir
+                try {
+                  Write-Step "Registering in environment '$AzdoEnvironment' of $AzdoOrgUrl/$AzdoProject"
+                  # Runs as LocalSystem because deployments must stop/start IIS app pools and
+                  # write under C:\inetpub. Trade-off documented in docs/security.md.
+                  & .\config.cmd --unattended `
+                    --environment --environmentname $AzdoEnvironment `
+                    --agent $env:COMPUTERNAME --replace `
+                    --runasservice --windowsLogonAccount 'NT AUTHORITY\SYSTEM' `
+                    --work '_work' `
+                    --url $AzdoOrgUrl --projectname $AzdoProject `
+                    --auth PAT --token $pat `
+                    --addvirtualmachineresourcetags --virtualmachineresourcetags $AzdoVmTags
+                  if ($LASTEXITCODE -ne 0) { throw "config.cmd failed with exit code $LASTEXITCODE" }
+                } finally {
+                  Pop-Location
+                  $pat = $null
+                  Remove-Item $zip -Force -ErrorAction SilentlyContinue
+                }
+                
+                Write-Step 'Bootstrap complete'
+                Stop-Transcript | Out-Null
+            EOT
+        }
+    }
+
+  # module.iis.azurerm_windows_virtual_machine.this["01"] will be created
+  + resource "azurerm_windows_virtual_machine" "this" {
+      + admin_password                                         = (sensitive value)
+      + admin_username                                         = "iisadmin"
+      + allow_extension_operations                             = (known after apply)
+      + automatic_updates_enabled                              = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = "iisdev01"
+      + disk_controller_type                                   = (known after apply)
+      + enable_automatic_updates                               = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + hotpatching_enabled                                    = false
+      + id                                                     = (known after apply)
+      + location                                               = "eastus2"
+      + max_bid_price                                          = -1
+      + name                                                   = "vm-hybrid-dev-eus2-iis-01"
+      + network_interface_ids                                  = (known after apply)
+      + os_managed_disk_id                                     = (known after apply)
+      + patch_assessment_mode                                  = "AutomaticByPlatform"
+      + patch_mode                                             = "AutomaticByPlatform"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-hybrid-dev-eus2"
+      + secure_boot_enabled                                    = true
+      + size                                                   = "Standard_B2ms"
+      + tags                                                   = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+          + "role"        = "iis"
+        }
+      + timezone                                               = "UTC"
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = (known after apply)
+      + vtpm_enabled                                           = true
+      + zone                                                   = "1"
+
+      + boot_diagnostics {}
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + id                        = (known after apply)
+          + name                      = "osdisk-vm-hybrid-dev-eus2-iis-01"
+          + storage_account_type      = "StandardSSD_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "WindowsServer"
+          + publisher = "MicrosoftWindowsServer"
+          + sku       = "2022-datacenter-azure-edition"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # module.iis.azurerm_windows_virtual_machine.this["02"] will be created
+  + resource "azurerm_windows_virtual_machine" "this" {
+      + admin_password                                         = (sensitive value)
+      + admin_username                                         = "iisadmin"
+      + allow_extension_operations                             = (known after apply)
+      + automatic_updates_enabled                              = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = "iisdev02"
+      + disk_controller_type                                   = (known after apply)
+      + enable_automatic_updates                               = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + hotpatching_enabled                                    = false
+      + id                                                     = (known after apply)
+      + location                                               = "eastus2"
+      + max_bid_price                                          = -1
+      + name                                                   = "vm-hybrid-dev-eus2-iis-02"
+      + network_interface_ids                                  = (known after apply)
+      + os_managed_disk_id                                     = (known after apply)
+      + patch_assessment_mode                                  = "AutomaticByPlatform"
+      + patch_mode                                             = "AutomaticByPlatform"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-hybrid-dev-eus2"
+      + secure_boot_enabled                                    = true
+      + size                                                   = "Standard_B2ms"
+      + tags                                                   = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+          + "role"        = "iis"
+        }
+      + timezone                                               = "UTC"
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = (known after apply)
+      + vtpm_enabled                                           = true
+      + zone                                                   = "2"
+
+      + boot_diagnostics {}
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + id                        = (known after apply)
+          + name                      = "osdisk-vm-hybrid-dev-eus2-iis-02"
+          + storage_account_type      = "StandardSSD_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "WindowsServer"
+          + publisher = "MicrosoftWindowsServer"
+          + sku       = "2022-datacenter-azure-edition"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # module.iis.azurerm_windows_virtual_machine.this["03"] will be created
+  + resource "azurerm_windows_virtual_machine" "this" {
+      + admin_password                                         = (sensitive value)
+      + admin_username                                         = "iisadmin"
+      + allow_extension_operations                             = (known after apply)
+      + automatic_updates_enabled                              = true
+      + bypass_platform_safety_checks_on_user_schedule_enabled = false
+      + computer_name                                          = "iisdev03"
+      + disk_controller_type                                   = (known after apply)
+      + enable_automatic_updates                               = (known after apply)
+      + extensions_time_budget                                 = "PT1H30M"
+      + hotpatching_enabled                                    = false
+      + id                                                     = (known after apply)
+      + location                                               = "eastus2"
+      + max_bid_price                                          = -1
+      + name                                                   = "vm-hybrid-dev-eus2-iis-03"
+      + network_interface_ids                                  = (known after apply)
+      + os_managed_disk_id                                     = (known after apply)
+      + patch_assessment_mode                                  = "AutomaticByPlatform"
+      + patch_mode                                             = "AutomaticByPlatform"
+      + platform_fault_domain                                  = -1
+      + priority                                               = "Regular"
+      + private_ip_address                                     = (known after apply)
+      + private_ip_addresses                                   = (known after apply)
+      + provision_vm_agent                                     = true
+      + public_ip_address                                      = (known after apply)
+      + public_ip_addresses                                    = (known after apply)
+      + resource_group_name                                    = "rg-hybrid-dev-eus2"
+      + secure_boot_enabled                                    = true
+      + size                                                   = "Standard_B2ms"
+      + tags                                                   = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+          + "role"        = "iis"
+        }
+      + timezone                                               = "UTC"
+      + virtual_machine_id                                     = (known after apply)
+      + vm_agent_platform_updates_enabled                      = (known after apply)
+      + vtpm_enabled                                           = true
+      + zone                                                   = "3"
+
+      + boot_diagnostics {}
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + os_disk {
+          + caching                   = "ReadWrite"
+          + disk_size_gb              = (known after apply)
+          + id                        = (known after apply)
+          + name                      = "osdisk-vm-hybrid-dev-eus2-iis-03"
+          + storage_account_type      = "StandardSSD_LRS"
+          + write_accelerator_enabled = false
+        }
+
+      + source_image_reference {
+          + offer     = "WindowsServer"
+          + publisher = "MicrosoftWindowsServer"
+          + sku       = "2022-datacenter-azure-edition"
+          + version   = "latest"
+        }
+
+      + termination_notification (known after apply)
+    }
+
+  # module.iis.random_password.admin will be created
+  + resource "random_password" "admin" {
+      + bcrypt_hash      = (sensitive value)
+      + id               = (known after apply)
+      + length           = 24
+      + lower            = true
+      + min_lower        = 2
+      + min_numeric      = 2
+      + min_special      = 2
+      + min_upper        = 2
+      + number           = true
+      + numeric          = true
+      + override_special = "!@#%^*-_=+"
+      + result           = (sensitive value)
+      + special          = true
+      + upper            = true
+    }
+
+  # module.network.azurerm_nat_gateway.this will be created
+  + resource "azurerm_nat_gateway" "this" {
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 10
+      + location                = "eastus2"
+      + name                    = "ng-hybrid-dev-eus2"
+      + resource_group_name     = "rg-hybrid-dev-eus2"
+      + resource_guid           = (known after apply)
+      + sku_name                = "Standard"
+      + tags                    = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # module.network.azurerm_nat_gateway_public_ip_association.this will be created
+  + resource "azurerm_nat_gateway_public_ip_association" "this" {
+      + id                   = (known after apply)
+      + nat_gateway_id       = (known after apply)
+      + public_ip_address_id = (known after apply)
+    }
+
+  # module.network.azurerm_network_security_group.aks will be created
+  + resource "azurerm_network_security_group" "aks" {
+      + id                  = (known after apply)
+      + location            = "eastus2"
+      + name                = "nsg-hybrid-dev-eus2-aks"
+      + resource_group_name = "rg-hybrid-dev-eus2"
+      + security_rule       = [
+          + {
+              + access                                     = "Allow"
+              + description                                = "Public entry to the modern app via the AKS-managed public load balancer."
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_ranges                    = [
+                  + "443",
+                  + "80",
+                ]
+              + direction                                  = "Inbound"
+              + name                                       = "Allow-HTTP-HTTPS-From-Internet"
+              + priority                                   = 100
+              + protocol                                   = "Tcp"
+              + source_address_prefix                      = "Internet"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + tags                = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # module.network.azurerm_network_security_group.iis will be created
+  + resource "azurerm_network_security_group" "iis" {
+      + id                  = (known after apply)
+      + location            = "eastus2"
+      + name                = "nsg-hybrid-dev-eus2-iis"
+      + resource_group_name = "rg-hybrid-dev-eus2"
+      + security_rule       = [
+          + {
+              + access                                     = "Allow"
+              + description                                = "Admin access only through Azure Bastion."
+              + destination_address_prefix                 = "10.20.10.0/24"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "3389"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "Allow-RDP-From-Bastion"
+              + priority                                   = 110
+              + protocol                                   = "Tcp"
+              + source_address_prefix                      = "10.20.20.0/26"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+            },
+          + {
+              + access                                     = "Allow"
+              + description                                = "App traffic from inside the VNet only (AKS pods, Bastion-hosted sessions, other IIS nodes, internal LB)."
+              + destination_address_prefix                 = "10.20.10.0/24"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_ranges                    = [
+                  + "443",
+                  + "80",
+                ]
+              + direction                                  = "Inbound"
+              + name                                       = "Allow-HTTP-HTTPS-From-VNet"
+              + priority                                   = 100
+              + protocol                                   = "Tcp"
+              + source_address_prefix                      = "10.20.0.0/16"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + access                                     = "Allow"
+              + description                                = "Health probes from the internal load balancer (168.63.129.16)."
+              + destination_address_prefix                 = "10.20.10.0/24"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "80"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "Allow-AzureLoadBalancer-Probe"
+              + priority                                   = 120
+              + protocol                                   = "Tcp"
+              + source_address_prefix                      = "AzureLoadBalancer"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+            },
+          + {
+              + access                                     = "Deny"
+              + description                                = "Default-deny; overrides AllowVnetInBound so only the ports above are open."
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "*"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "Deny-All-Other-Inbound"
+              + priority                                   = 4096
+              + protocol                                   = "*"
+              + source_address_prefix                      = "*"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+            },
+          + {
+              + access                                     = "Deny"
+              + description                                = "Explicit: nothing from the Internet, ever (I-4)."
+              + destination_address_prefix                 = "*"
+              + destination_address_prefixes               = []
+              + destination_application_security_group_ids = []
+              + destination_port_range                     = "*"
+              + destination_port_ranges                    = []
+              + direction                                  = "Inbound"
+              + name                                       = "Deny-Internet-Inbound"
+              + priority                                   = 4000
+              + protocol                                   = "*"
+              + source_address_prefix                      = "Internet"
+              + source_address_prefixes                    = []
+              + source_application_security_group_ids      = []
+              + source_port_range                          = "*"
+              + source_port_ranges                         = []
+            },
+        ]
+      + tags                = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # module.network.azurerm_public_ip.nat will be created
+  + resource "azurerm_public_ip" "nat" {
+      + allocation_method       = "Static"
+      + ddos_protection_mode    = "VirtualNetworkInherited"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + idle_timeout_in_minutes = 4
+      + ip_address              = (known after apply)
+      + ip_version              = "IPv4"
+      + location                = "eastus2"
+      + name                    = "pip-hybrid-dev-eus2-nat"
+      + resource_group_name     = "rg-hybrid-dev-eus2"
+      + sku                     = "Standard"
+      + sku_tier                = "Regional"
+      + tags                    = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+  # module.network.azurerm_subnet.aks will be created
+  + resource "azurerm_subnet" "aks" {
+      + address_prefixes                              = [
+          + "10.20.0.0/22",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "snet-aks"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-hybrid-dev-eus2"
+      + virtual_network_name                          = "vnet-hybrid-dev-eus2"
+    }
+
+  # module.network.azurerm_subnet.bastion will be created
+  + resource "azurerm_subnet" "bastion" {
+      + address_prefixes                              = [
+          + "10.20.20.0/26",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "AzureBastionSubnet"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-hybrid-dev-eus2"
+      + virtual_network_name                          = "vnet-hybrid-dev-eus2"
+    }
+
+  # module.network.azurerm_subnet.iis will be created
+  + resource "azurerm_subnet" "iis" {
+      + address_prefixes                              = [
+          + "10.20.10.0/24",
+        ]
+      + default_outbound_access_enabled               = false
+      + id                                            = (known after apply)
+      + name                                          = "snet-iis"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "rg-hybrid-dev-eus2"
+      + virtual_network_name                          = "vnet-hybrid-dev-eus2"
+    }
+
+  # module.network.azurerm_subnet_nat_gateway_association.iis will be created
+  + resource "azurerm_subnet_nat_gateway_association" "iis" {
+      + id             = (known after apply)
+      + nat_gateway_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.network.azurerm_subnet_network_security_group_association.aks will be created
+  + resource "azurerm_subnet_network_security_group_association" "aks" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = (known after apply)
+    }
+
+  # module.network.azurerm_subnet_network_security_group_association.iis will be created
+  + resource "azurerm_subnet_network_security_group_association" "iis" {
+      + id                        = (known after apply)
+      + network_security_group_id = (known after apply)
+      + subnet_id                 = (known after apply)
+    }
+
+  # module.network.azurerm_virtual_network.this will be created
+  + resource "azurerm_virtual_network" "this" {
+      + address_space                  = [
+          + "10.20.0.0/16",
+        ]
+      + dns_servers                    = (known after apply)
+      + guid                           = (known after apply)
+      + id                             = (known after apply)
+      + location                       = "eastus2"
+      + name                           = "vnet-hybrid-dev-eus2"
+      + private_endpoint_vnet_policies = "Disabled"
+      + resource_group_name            = "rg-hybrid-dev-eus2"
+      + subnet                         = (known after apply)
+      + tags                           = {
+          + "environment" = "dev"
+          + "managed_by"  = "terraform"
+          + "project"     = "hybrid"
+          + "repo"        = "platform-infra"
+        }
+    }
+
+Plan: 46 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + acr_login_server             = (known after apply)
+  + acr_name                     = (known after apply)
+  + aks_cluster_name             = "aks-hybrid-dev-eus2"
+  + iis_admin_password_secret_id = (known after apply)
+  + iis_admin_username           = "iisadmin"
+  + iis_egress_ip                = (known after apply)
+  + iis_lb_private_ip            = "10.20.10.10"
+  + iis_vm_private_ips           = {
+      + iisdev01 = (known after apply)
+      + iisdev02 = (known after apply)
+      + iisdev03 = (known after apply)
+    }
+  + log_analytics_workspace_id   = (known after apply)
+  + resource_group_name          = "rg-hybrid-dev-eus2"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "tfplan"
+Releasing state lock. This may take a few moments...

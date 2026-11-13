@@ -1,0 +1,14 @@
+# Copy to terraform.tfvars (git-ignored). Contains NO secrets by design:
+# the agent PAT lives only in Key Vault, the VM password is generated.
+subscription_id         = "00000000-0000-0000-0000-000000000000"
+platform_key_vault_name = "kv-hybrid-xxxxx"
+platform_key_vault_rg   = "rg-hybrid-tfstate-eus2"
+
+# Object id of the Azure DevOps service connection's service principal
+deployer_object_ids = []
+
+azdo = {
+  org_url     = "https://dev.azure.com/<org>"
+  project     = "hybrid-platform"
+  environment = "iis-dev"
+}
