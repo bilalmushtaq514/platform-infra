@@ -202,7 +202,16 @@ About 5 seconds per server (a pointer switch, no download or rebuild), followed 
 
 ### Path 2: re-run the deploy stage of an older run (redeploys that run's own artifact)
 
-Used to roll *forward* again to v2 after the demo: run #126 → "Rerun stage" `Deploy_IIS_dev`.
+Used to roll *forward* again to v2 after the demo: run #126 → "Rerun stage" `Deploy_IIS_dev` (approved). Its own retained artifact was redeployed:
+
+```
+[13:55:02] [iisdev01] Live release before change: C:\inetpub\eshop\releases\121
+[13:55:07] [iisdev01] physicalPath -> C:\inetpub\eshop\releases\126
+[13:55:16] [iisdev01] HEALTHY on C:\inetpub\eshop\releases\126
+[13:55:43] [iisdev03] ... HEALTHY on C:\inetpub\eshop\releases\126
+[13:56:17] [iisdev02] ... HEALTHY on C:\inetpub\eshop\releases\126
+Distinct servers behind the ILB:  5 iisdev01 · 6 iisdev02 · 5 iisdev03
+```
 
 ## 8. Infra pipeline (bonus: plan on PR, apply behind approval)
 
