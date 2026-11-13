@@ -25,6 +25,16 @@ flowchart LR
   internet -.-x ilb
 ```
 
+## Deliverables at a glance
+
+| # | Deliverable | Where |
+|---|---|---|
+| 1 | Three repos | [platform-infra](https://github.com/bilalmushtaq514/platform-infra) · [eShopOnWeb fork](https://github.com/bilalmushtaq514/eShopOnWeb) · [eShopModernizing fork](https://github.com/bilalmushtaq514/eShopModernizing) |
+| 2 | Azure DevOps project | `https://dev.azure.com/bilalmushtaq514/hybrid-platform` – pipelines *A - eShopOnWeb to AKS*, *B - eShopLegacyMVC to private IIS*, *platform-infra (Terraform)*; environments `aks-dev`, `iis-dev` (3 VMs + approval), `infra-dev` (approval) |
+| 3 | Evidence for §3.3 | [docs/evidence/verification.md](docs/evidence/verification.md): public app, private IIS (failed request + no public IPs), in-VNet LB rotation, v2 change on both, broken deployments caught, rollback |
+| 4 | `terraform plan` / `state list` | [terraform-plan-initial.txt](docs/evidence/terraform-plan-initial.txt) · [terraform-plan-drift-check.txt](docs/evidence/terraform-plan-drift-check.txt) · [terraform-state-list.txt](docs/evidence/terraform-state-list.txt) |
+| Live | Modern app | http://eshop-hybrid-dev.eastus2.cloudapp.azure.com (while the environment is running) |
+
 ## Documentation
 
 | Doc | Contents |

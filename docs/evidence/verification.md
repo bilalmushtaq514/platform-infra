@@ -181,3 +181,37 @@ build 126-9685fc3 &middot; env dev &middot; server iisdev03 Catalog manager <spa
 # pipeline B #126 verification stage:
 Distinct servers behind the ILB:  5 iisdev01 · 3 iisdev02 · 4 iisdev03   (all on 126-9685fc3)
 ```
+
+## 7. Rollback (B-7)
+
+### Path 1: `action=rollback` (run #127, approved). Every server switches back to its previous release folder, one at a time
+
+```
+[13:33:28] [iisdev01] Live release before change: C:\inetpub\eshop\releases\126
+[13:33:31] [iisdev01] physicalPath -> C:\inetpub\eshop\releases\121
+[13:33:33] [iisdev01] health attempt 1: HTTP 200 {"Server":"iisdev01","Build":"121-0bf8205"}
+[13:34:02] [iisdev03] Live release before change: C:\inetpub\eshop\releases\126
+[13:34:06] [iisdev03] physicalPath -> C:\inetpub\eshop\releases\121
+[13:34:08] [iisdev03] health attempt 1: HTTP 200 {"Server":"iisdev03","Build":"121-0bf8205"}
+[13:34:36] [iisdev02] Live release before change: C:\inetpub\eshop\releases\126
+[13:34:39] [iisdev02] physicalPath -> C:\inetpub\eshop\releases\121
+[13:34:41] [iisdev02] health attempt 1: HTTP 200 {"Server":"iisdev02","Build":"121-0bf8205"}
+```
+
+About 5 seconds per server (a pointer switch, no download or rebuild), followed by the ILB verification stage (all 200).
+
+### Path 2: re-run the deploy stage of an older run (redeploys that run's own artifact)
+
+Used to roll *forward* again to v2 after the demo: run #126 → "Rerun stage" `Deploy_IIS_dev`.
+
+## 8. Infra pipeline (bonus: plan on PR, apply behind approval)
+
+Run #129: Validate ✔ (fmt, validate, Checkov: 43 passed / 33 findings, report-only, triaged in [security.md](../security.md#checkov-findings-infra-pipeline-report-only)) → Plan ✔ → **approval on `infra-dev`** → Apply ✔ `Apply complete! Resources: 0 added, 0 changed, 0 destroyed.` (applies the exact reviewed plan file). The first attempt, #128, failed on a macOS-only provider lock file (fixed with `terraform providers lock -platform=…`).
+
+```
+Initializing the backend...                    # azurerm backend, OIDC token from sc-azure-infra, no secret
+Successfully configured the backend "azurerm"!
+Acquiring state lock. This may take a few moments...      # blob lease
+No changes. Your infrastructure matches the configuration.
+Releasing state lock. This may take a few moments...
+```

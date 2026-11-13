@@ -42,3 +42,19 @@ What is never in Git (`.gitignore`): `*.tfstate*`, `*.tfvars`, `backend.hcl`, `t
 | `UseMockData=true`: catalog edits are in memory and **differ per IIS node** | No SQL needed, nodes stay identical and stateless for LB tests | Small Azure SQL with Private Endpoint; connection string from Key Vault |
 | Bastion subnet has no custom NSG | Bastion's required rules are easy to get wrong | Add the documented Bastion NSG rule set |
 | Windows Firewall rule for HTTP enabled on the hosts | Defence in depth; the NSG is the perimeter | Restrict the host firewall to `10.20.0.0/16` too |
+
+## Checkov findings (infra pipeline, report-only)
+
+43 checks pass and 33 are flagged. I reviewed every one; none is an unknown gap. They fall into these groups:
+
+| Group | Checks | Disposition |
+|---|---|---|
+| **Private networking** for PaaS / AKS API | CKV_AZURE_115, _6, _139, _189, _109, CKV2_AZURE_32, _33, _59 | Known trade-off (hosted agents, Basic ACR). Top of the improvements list |
+| **Premium-SKU features** (ACR scanning, quarantine, signing, geo/zone redundancy, dedicated endpoints, retention; AKS paid SLA) | CKV_AZURE_163–167, _233, _237, _170 | Cost: Basic ACR / Free AKS tier for a sandbox. Image scanning is done in CI with Trivy instead |
+| **CMK / disk encryption sets / encryption at host** | CKV2_AZURE_1, CKV_AZURE_117, _151, _227 | Platform-managed keys are used (encrypted at rest). CMK adds KV key lifecycle; encryption-at-host needs a subscription feature flag |
+| **Key Vault hardening** | CKV_AZURE_110, _42 (purge protection), _41 (secret expiry) | Purge protection is off on purpose so the sandbox can be torn down and recreated; on in prod. The PAT secret should get an expiry matching the PAT (7 days) |
+| **Storage logging / replication** | CKV2_AZURE_21, CKV_AZURE_33, _206 | State account is ZRS (Checkov wants GRS). Diagnostic logging → Log Analytics would close it |
+| **"VM extensions installed"** | CKV_AZURE_50 | Intentional: Run Command is how IIS is configured with no manual steps (I-6) |
+| **"HTTP 80 from Internet"** | CKV_AZURE_160 | Intentional on the **AKS** NSG (public app). TLS is the first improvement |
+| **NSG on every subnet** | CKV2_AZURE_31 | AzureBastionSubnet. See network.md for why there's no custom NSG |
+| AKS misc. | CKV_AZURE_116 (Azure Policy add-on), _172 (CSI secret rotation), _226 (ephemeral OS disk – B2ms has no cache disk), _232 (system-only node pool) | Single small node pool for cost; Policy add-on is a cheap win to add |
